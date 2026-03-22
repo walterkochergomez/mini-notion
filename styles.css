@@ -33,22 +33,26 @@ header { background: var(--bg-card); padding: 15px 0; border-bottom: 1px solid v
 /* Cards */
 .card { background: var(--bg-card); padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 20px; }
 
-/* Formulario */
-.form-group { margin-bottom: 15px; }
+/* --- FORMULARIO --- */
+.form-group { 
+    margin-bottom: 15px; 
+    width: 100%;
+    max-width: 100%;
+    /* Esto es magia: corta físicamente cualquier elemento hijo que intente salirse de la caja */
+    overflow: hidden; 
+}
+
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
 input, select, .form-control { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-card); color: var(--text); }
 
-/* Fix DEFINITIVO para evitar que el campo de fecha se desborde en iOS/Safari */
+/* Fix DEFINITIVO forzado para iOS */
 input[type="date"] {
-    -webkit-appearance: none; /* Le quita la restricción de diseño nativa de Apple */
-    appearance: none;
-    width: 90%;
-    min-width: 0; /* Evita que el contenedor grid lo obligue a ser más ancho */
-    max-width: 90%;
-    box-sizing: border-box;
-    display: block;
-    background-color: var(--bg-card); /* Mantiene tu color de fondo intacto */
-    font-family: inherit; /* Fuerza a usar tu misma fuente */
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    margin: 0 !important;
+    -webkit-appearance: none !important;
+    appearance: none !important;
 }
 
 /* Botones */
