@@ -20,9 +20,9 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
 
-body { background-color: var(--bg); color: var(--text); transition: 0.3s; }
+body { background-color: var(--bg); color: var(--text); transition: 0.3s; display: flex; flex-direction: column; min-height: 100vh; }
 
-.container { max-width: 1000px; margin: 0 auto; padding: 20px; }
+.container { max-width: 1000px; margin: 0 auto; padding: 20px; flex: 1; /* Empuja el footer hacia abajo */ }
 
 /* Header */
 header { background: var(--bg-card); padding: 15px 0; border-bottom: 1px solid var(--border); }
@@ -33,15 +33,8 @@ header { background: var(--bg-card); padding: 15px 0; border-bottom: 1px solid v
 /* Cards */
 .card { background: var(--bg-card); padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 20px; }
 
-/* --- FORMULARIO --- */
-.form-group { 
-    margin-bottom: 15px; 
-    width: 100%;
-    max-width: 100%;
-    /* Esto es magia: corta físicamente cualquier elemento hijo que intente salirse de la caja */
-    overflow: hidden; 
-}
-
+/* Formulario */
+.form-group { margin-bottom: 15px; width: 100%; max-width: 100%; overflow: hidden; }
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
 input, select, .form-control { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-card); color: var(--text); }
 
@@ -63,63 +56,20 @@ button { cursor: pointer; border: none; border-radius: 8px; font-weight: 600; tr
 .btn-icon { background: transparent; font-size: 1.5rem; }
 
 /* --- HERRAMIENTAS DE IA --- */
-.ai-tools-section h3 {
-    margin-bottom: 15px;
-}
+.ai-tools-section h3 { margin-bottom: 15px; }
+.ai-buttons { display: flex; gap: 10px; flex-wrap: wrap; }
+.btn-ai { flex: 1 1 calc(33.333% - 10px); text-align: center; text-decoration: none; padding: 12px; border-radius: 8px; font-weight: 600; color: white; transition: 0.2s; min-width: 140px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; gap: 8px; }
+.btn-ai:active { transform: scale(0.98); }
 
-.ai-buttons {
-    display: flex;
-    gap: 15px;
-    flex-wrap: wrap; 
-}
+.btn-gemini { background: #8e44ad; } .btn-gemini:hover { background: #9b59b6; }
+.btn-notebooklm { background: #27ae60; } .btn-notebooklm:hover { background: #2ecc71; }
+.btn-aistudio { background: #d35400; } .btn-aistudio:hover { background: #e67e22; }
+.btn-chatgpt { background: #10a37f; } .btn-chatgpt:hover { background: #0e906f; }
+.btn-claude { background: #d97757; } .btn-claude:hover { background: #c2694b; }
+.btn-gamma { background: #673ab7; } .btn-gamma:hover { background: #5e35b1; }
 
-.btn-ai {
-    flex: 1; 
-    text-align: center;
-    text-decoration: none; 
-    padding: 12px 20px;
-    border-radius: 8px;
-    font-weight: 600;
-    color: white;
-    transition: background-color 0.2s, transform 0.1s;
-    min-width: 150px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.btn-ai:active {
-    transform: scale(0.98);
-}
-
-.btn-gemini { background: #8e44ad; }
-.btn-gemini:hover { background: #9b59b6; }
-
-.btn-notebooklm { background: #27ae60; }
-.btn-notebooklm:hover { background: #2ecc71; }
-
-.btn-aistudio { background: #d35400; }
-.btn-aistudio:hover { background: #e67e22; }
-
-/* Colores de las nuevas herramientas */
-.btn-chatgpt { background: #10a37f; } /* Verde clásico de OpenAI */
-.btn-chatgpt:hover { background: #0e906f; }
-
-.btn-claude { background: #d97757; } /* Tono terracota de Anthropic */
-.btn-claude:hover { background: #c2694b; }
-
-.btn-gamma { background: #673ab7; } /* Morado vibrante para Gamma */
-.btn-gamma:hover { background: #5e35b1; }
-
-/* Sección de Controles (Filtro + Exportar) */
-.controls-section {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    gap: 15px;
-    margin-bottom: 25px;
-    background: var(--bg-card);
-    padding: 15px;
-    border-radius: 12px;
-}
+/* Sección de Controles */
+.controls-section { display: flex; justify-content: space-between; align-items: flex-end; gap: 15px; margin-bottom: 25px; background: var(--bg-card); padding: 15px; border-radius: 12px; }
 .filter-group { flex: 1; }
 
 /* Grid del Dashboard */
@@ -127,19 +77,11 @@ button { cursor: pointer; border: none; border-radius: 8px; font-weight: 600; tr
 
 /* Lista de Tareas */
 #task-list { list-style: none; }
-.task-item { 
-    background: var(--bg-card); padding: 15px; border-radius: 10px; 
-    margin-bottom: 10px; display: flex; justify-content: space-between; 
-    align-items: center; border-left: 5px solid var(--primary);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-}
+.task-item { background: var(--bg-card); padding: 15px; border-radius: 10px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border-left: 5px solid var(--primary); box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
 .task-item.completed { opacity: 0.6; text-decoration: line-through; border-left-color: var(--success); }
 
 /* Estado de subida */
-.status-msg { 
-    background: #e3f2fd; color: #1976d2; padding: 10px; 
-    border-radius: 8px; margin-bottom: 15px; text-align: center;
-}
+.status-msg { background: #e3f2fd; color: #1976d2; padding: 10px; border-radius: 8px; margin-bottom: 15px; text-align: center; }
 
 /* Calendario */
 .calendar-card { background: var(--bg-card); padding: 15px; border-radius: 12px; align-self: start; }
@@ -149,37 +91,78 @@ button { cursor: pointer; border: none; border-radius: 8px; font-weight: 600; tr
 .calendar-day { aspect-ratio: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 0.9rem; border-radius: 5px; cursor: pointer; }
 .calendar-day:hover { background: var(--primary); color: white; }
 .calendar-day.today { border: 2px solid var(--primary); font-weight: bold; }
-.calendar-day.selected { background: var(--primary-dark); color: white; }
 .markers-container { display: flex; gap: 2px; margin-top: 2px; }
 .task-marker { width: 4px; height: 4px; border-radius: 50%; background: var(--primary); }
-.task-marker.done { background: var(--success); }
 
 /* Overlay de Login */
 .overlay { position: fixed; inset: 0; background: var(--bg); display: flex; align-items: center; justify-content: center; z-index: 1000; }
 .login-card { text-align: center; padding: 40px; background: var(--bg-card); border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
 .btn-google { background: white; color: #757575; border: 1px solid #ddd; padding: 12px 24px; font-size: 1rem; display: flex; align-items: center; gap: 10px; margin: 20px auto; }
 
+/* --- FOOTER --- */
+footer {
+    background: var(--bg-card);
+    padding: 20px 0;
+    border-top: 1px solid var(--border);
+    margin-top: auto; /* Asegura que se quede abajo */
+}
+
+.footer-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.footer-links {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.footer-links a {
+    text-decoration: none;
+    transition: transform 0.2s;
+    display: flex;
+    align-items: center;
+}
+
+.footer-links a:hover {
+    transform: scale(1.1);
+}
+
+.linkedin-link {
+    color: #0077b5; /* Color de marca de LinkedIn */
+}
+
+.portfolio-icon {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%; /* Opcional, queda bien si es circular */
+    object-fit: cover;
+}
+
 /* --- RESPONSIVE / CELULAR --- */
 @media (max-width: 800px) {
     .dashboard-grid { grid-template-columns: 1fr; }
-    .calendar-card { order: -1; } /* Calendario arriba en móvil */
+    .calendar-card { order: -1; }
 }
 
 @media (max-width: 600px) {
-    .controls-section {
-        flex-direction: column;
-        align-items: stretch;
-    }
-    #btn-export {
-        width: 100%;
-        margin-top: 5px;
-    }
+    .controls-section { flex-direction: column; align-items: stretch; }
+    #btn-export { width: 100%; margin-top: 5px; }
     .form-row { grid-template-columns: 1fr; }
     .header-container { flex-direction: column; gap: 10px; text-align: center; }
+    .btn-ai { flex: 1 1 calc(50% - 10px); }
     
-    .btn-ai {
-        width: 100%;
-        flex: none;
+    .footer-container {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
     }
 }
 
