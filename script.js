@@ -4,7 +4,7 @@ import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChang
 
 // --- 🔥 CONFIGURACIÓN DE FIREBASE ---
 const firebaseConfig = {
-    apiKey: "AIzaSyAjWtEeVUDQFrPYGXRpRxK9J_Gf4M77lyw",
+  apiKey: "AIzaSyAjWtEeVUDQFrPYGXRpRxK9J_Gf4M77lyw",
   authDomain: "organizador-academico-35d9d.firebaseapp.com",
   projectId: "organizador-academico-35d9d",
   storageBucket: "organizador-academico-35d9d.firebasestorage.app",
@@ -17,7 +17,7 @@ const db = getFirestore(app);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 provider.addScope('https://www.googleapis.com/auth/drive.file');
-provider.setCustomParameters({ prompt: 'select_account' });
+provider.setCustomParameters({ prompt: 'select_account' }); // Permite elegir cuenta de Google siempre
 
 const tasksRef = collection(db, "academicTasks");
 let currentUser = null; 
@@ -33,6 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const cancelEditBtn = document.getElementById('cancel-edit-btn');
     const themeToggle = document.getElementById('theme-toggle');
     const btnExport = document.getElementById('btn-export');
+    const btnExportIcs = document.getElementById('btn-export-ics'); // Botón de Calendario
     const btnLogin = document.getElementById('btn-login');
     const btnLogout = document.getElementById('btn-logout');
     const loginOverlay = document.getElementById('login-overlay');
@@ -83,24 +84,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     btnLogout.addEventListener('click', () => { signOut(auth); });
 
-    // --- LÓGICA DE GOOGLE DRIVE (MENSAJES DINÁMICOS RESTAURADOS) ---
+    // --- LÓGICA DE GOOGLE DRIVE ---
     async function uploadToDrive(file, folderName) {
         if (!accessToken) return null;
         try {
-            // Paso 1: Subiendo archivo específico
             statusDisplay.textContent = `☁️ Subiendo "${file.name}"...`;
             statusDisplay.classList.remove('hidden');
 
             const masterId = await getOrCreateFolder("Organizador", "root");
             const subjectId = await getOrCreateFolder(folderName, masterId);
             
-            // Obtener link de la carpeta de la asignatura
             const folderRes = await fetch(`https://www.googleapis.com/drive/v3/files/${subjectId}?fields=webViewLink`, {
                 headers: { 'Authorization': 'Bearer ' + accessToken }
             });
             const folderData = await folderRes.json();
 
-            // Paso 2: Confirmando carpeta de destino
             statusDisplay.textContent = `📂 Guardando en carpeta: Organizador/${folderName}`;
 
             const metadata = { name: file.name, parents: [subjectId] };
@@ -113,7 +111,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             const fileData = await res.json();
             
-            // Paso 3: Éxito final
             statusDisplay.textContent = `✅ ¡Archivo guardado con éxito!`;
             
             return { fileLink: fileData.webViewLink, folderLink: folderData.webViewLink };
@@ -186,7 +183,6 @@ document.addEventListener('DOMContentLoaded', () => {
         submitBtn.disabled = false;
         submitBtn.innerHTML = 'Guardar Tarea';
         
-        // Ocultar mensaje de estado después de 3 segundos
         setTimeout(() => { statusDisplay.classList.add('hidden'); }, 3000);
     });
 
@@ -212,6 +208,34 @@ document.addEventListener('DOMContentLoaded', () => {
         const link = document.createElement("a");
         link.href = URL.createObjectURL(blob);
         link.download = `Plan_Academico_${new Date().toISOString().split('T')[0]}.csv`;
+        link.click();
+    });
+
+    // --- EXPORTAR A CALENDARIO (.ics) ---
+    btnExportIcs.addEventListener('click', () => {
+        if (tasks.length === 0) return alert("No hay tareas para exportar.");
+        
+        let icsContent = "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Organizador Academico UFRO//ES\n";
+        
+        tasks.forEach(t => {
+            if (t.completed) return; 
+
+            const dateStr = t.date.replace(/-/g, "");
+            const desc = t.folderMaterial ? `Link al material en Drive: ${t.folderMaterial}` : "Sin material adjunto";
+            
+            icsContent += "BEGIN:VEVENT\n";
+            icsContent += `SUMMARY: ${t.subject} - ${t.name}\n`;
+            icsContent += `DTSTART;VALUE=DATE:${dateStr}\n`;
+            icsContent += `DESCRIPTION:${desc}\n`;
+            icsContent += "END:VEVENT\n";
+        });
+        
+        icsContent += "END:VCALENDAR";
+        
+        const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8;' });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = `Entregas_UFRO_${new Date().toISOString().split('T')[0]}.ics`;
         link.click();
     });
 
