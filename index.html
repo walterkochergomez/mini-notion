@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organizador Académico | UFRO</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div id="login-overlay" class="overlay">
+        <div class="login-card">
+            <h1>📚 Organizador Académico</h1>
+            <p>Gestiona tus tareas y materiales de la universidad de forma inteligente.</p>
+            <button id="btn-login" class="btn-google">Ingresar con Google</button>
+        </div>
+    </div>
+
+    <header>
+        <div class="header-container">
+            <div class="user-info">
+                <span id="user-name-display">Cargando...</span>
+            </div>
+            <div class="header-actions">
+                <button id="theme-toggle" class="btn-icon" title="Cambiar Modo">🌓</button>
+                <button id="btn-logout" class="btn-danger">Salir</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="card form-section">
+            <h3>Nueva Tarea</h3>
+            <form id="task-form">
+                <div class="form-group">
+                    <input type="text" id="task-name" placeholder="Nombre de la tarea (ej: Certamen 1)" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="task-subject" list="subject-list" placeholder="Asignatura (ej: Cálculo I)" required>
+                    <datalist id="subject-list"></datalist>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <input type="date" id="task-date" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="file" id="task-file" class="file-input">
+                    </div>
+                </div>
+                
+                <div id="upload-status" class="status-msg hidden"></div>
+
+                <div class="form-actions">
+                    <button type="submit" id="submit-btn" class="btn-primary">Guardar Tarea</button>
+                    <button type="button" id="cancel-edit-btn" class="btn-secondary hidden">Cancelar Edición</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="controls-section">
+            <div class="filter-group">
+                <label for="filter-subject">Filtrar por Asignatura:</label>
+                <select id="filter-subject" class="form-control">
+                    <option value="all">Todas las asignaturas</option>
+                </select>
+            </div>
+            <button id="btn-export" class="btn-secondary">📊 Exportar a CSV</button>
+        </section>
+
+        <div class="dashboard-grid">
+            <section class="tasks-container">
+                <h3>Próximas Entregas</h3>
+                <ul id="task-list">
+                    </ul>
+            </section>
+
+            <aside class="calendar-card">
+                <div class="calendar-header">
+                    <button id="prev-month">&lt;</button>
+                    <h4 id="month-year">Marzo 2026</h4>
+                    <button id="next-month">&gt;</button>
+                </div>
+                <div class="calendar-weekdays">
+                    <div>Lu</div><div>Ma</div><div>Mi</div><div>Ju</div><div>Vi</div><div>Sá</div><div>Do</div>
+                </div>
+                <div id="calendar-days" class="calendar-days"></div>
+            </aside>
+        </div>
+    </main>
+
+    <script type="module" src="script.js"></script>
+</body>
+</html>
