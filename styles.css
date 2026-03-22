@@ -42,9 +42,9 @@ input, select, .form-control { width: 100%; padding: 12px; border: 1px solid var
 input[type="date"] {
     -webkit-appearance: none; /* Le quita la restricción de diseño nativa de Apple */
     appearance: none;
-    width: 100%;
+    width: 90%;
     min-width: 0; /* Evita que el contenedor grid lo obligue a ser más ancho */
-    max-width: 100%;
+    max-width: 90%;
     box-sizing: border-box;
     display: block;
     background-color: var(--bg-card); /* Mantiene tu color de fondo intacto */
