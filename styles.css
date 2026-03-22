@@ -38,12 +38,17 @@ header { background: var(--bg-card); padding: 15px 0; border-bottom: 1px solid v
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
 input, select, .form-control { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-card); color: var(--text); }
 
-/* Fix para evitar que el campo de fecha se desborde en iOS */
+/* Fix DEFINITIVO para evitar que el campo de fecha se desborde en iOS/Safari */
 input[type="date"] {
+    -webkit-appearance: none; /* Le quita la restricción de diseño nativa de Apple */
+    appearance: none;
     width: 100%;
+    min-width: 0; /* Evita que el contenedor grid lo obligue a ser más ancho */
     max-width: 100%;
     box-sizing: border-box;
     display: block;
+    background-color: var(--bg-card); /* Mantiene tu color de fondo intacto */
+    font-family: inherit; /* Fuerza a usar tu misma fuente */
 }
 
 /* Botones */
