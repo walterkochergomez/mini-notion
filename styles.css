@@ -99,6 +99,16 @@ button { cursor: pointer; border: none; border-radius: 8px; font-weight: 600; tr
 .btn-aistudio { background: #d35400; }
 .btn-aistudio:hover { background: #e67e22; }
 
+/* Colores de las nuevas herramientas */
+.btn-chatgpt { background: #10a37f; } /* Verde clásico de OpenAI */
+.btn-chatgpt:hover { background: #0e906f; }
+
+.btn-claude { background: #d97757; } /* Tono terracota de Anthropic */
+.btn-claude:hover { background: #c2694b; }
+
+.btn-gamma { background: #673ab7; } /* Morado vibrante para Gamma */
+.btn-gamma:hover { background: #5e35b1; }
+
 /* Sección de Controles (Filtro + Exportar) */
 .controls-section {
     display: flex;
