@@ -38,12 +38,57 @@ header { background: var(--bg-card); padding: 15px 0; border-bottom: 1px solid v
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
 input, select, .form-control { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-card); color: var(--text); }
 
+/* Fix para evitar que el campo de fecha se desborde en iOS */
+input[type="date"] {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    display: block;
+}
+
 /* Botones */
 button { cursor: pointer; border: none; border-radius: 8px; font-weight: 600; transition: 0.2s; }
 .btn-primary { background: var(--primary); color: white; padding: 12px 25px; width: 100%; }
 .btn-secondary { background: #95a5a6; color: white; padding: 10px 20px; }
 .btn-danger { background: var(--danger); color: white; padding: 8px 15px; }
 .btn-icon { background: transparent; font-size: 1.5rem; }
+
+/* --- HERRAMIENTAS DE IA --- */
+.ai-tools-section h3 {
+    margin-bottom: 15px;
+}
+
+.ai-buttons {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap; 
+}
+
+.btn-ai {
+    flex: 1; 
+    text-align: center;
+    text-decoration: none; 
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    color: white;
+    transition: background-color 0.2s, transform 0.1s;
+    min-width: 150px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.btn-ai:active {
+    transform: scale(0.98);
+}
+
+.btn-gemini { background: #8e44ad; }
+.btn-gemini:hover { background: #9b59b6; }
+
+.btn-notebooklm { background: #27ae60; }
+.btn-notebooklm:hover { background: #2ecc71; }
+
+.btn-aistudio { background: #d35400; }
+.btn-aistudio:hover { background: #e67e22; }
 
 /* Sección de Controles (Filtro + Exportar) */
 .controls-section {
@@ -85,8 +130,10 @@ button { cursor: pointer; border: none; border-radius: 8px; font-weight: 600; tr
 .calendar-day { aspect-ratio: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 0.9rem; border-radius: 5px; cursor: pointer; }
 .calendar-day:hover { background: var(--primary); color: white; }
 .calendar-day.today { border: 2px solid var(--primary); font-weight: bold; }
+.calendar-day.selected { background: var(--primary-dark); color: white; }
 .markers-container { display: flex; gap: 2px; margin-top: 2px; }
 .task-marker { width: 4px; height: 4px; border-radius: 50%; background: var(--primary); }
+.task-marker.done { background: var(--success); }
 
 /* Overlay de Login */
 .overlay { position: fixed; inset: 0; background: var(--bg); display: flex; align-items: center; justify-content: center; z-index: 1000; }
@@ -110,73 +157,11 @@ button { cursor: pointer; border: none; border-radius: 8px; font-weight: 600; tr
     }
     .form-row { grid-template-columns: 1fr; }
     .header-container { flex-direction: column; gap: 10px; text-align: center; }
-}
-
-.hidden { display: none; }
-
-/* --- HERRAMIENTAS DE IA --- */
-.ai-tools-section h3 {
-    margin-bottom: 15px;
-}
-
-.ai-buttons {
-    display: flex;
-    gap: 15px;
-    flex-wrap: wrap; /* Permite que los botones bajen de línea si no hay espacio */
-}
-
-.btn-ai {
-    flex: 1; /* Hace que todos los botones tengan el mismo ancho */
-    text-align: center;
-    text-decoration: none; /* Quita el subrayado del enlace */
-    padding: 12px 20px;
-    border-radius: 8px;
-    font-weight: 600;
-    color: white;
-    transition: background-color 0.2s, transform 0.1s;
-    min-width: 150px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.btn-ai:active {
-    transform: scale(0.98);
-}
-
-/* Colores personalizados para cada herramienta */
-.btn-gemini { background: #8e44ad; }
-.btn-gemini:hover { background: #9b59b6; }
-
-.btn-notebooklm { background: #27ae60; }
-.btn-notebooklm:hover { background: #2ecc71; }
-
-.btn-aistudio { background: #d35400; }
-.btn-aistudio:hover { background: #e67e22; }
-
-/* Ajuste Responsivo para Celulares */
-@media (max-width: 600px) {
+    
     .btn-ai {
         width: 100%;
         flex: none;
     }
 }
-/* --- FIX PARA PLACEHOLDER DE FECHA EN IOS --- */
-.date-wrapper {
-    position: relative;
-}
 
-.date-placeholder {
-    position: absolute;
-    left: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--text-muted); /* Usa tu color de dark/light mode */
-    pointer-events: none; /* Permite que el clic "atraviese" el texto y abra el calendario */
-    transition: opacity 0.2s ease;
-}
-
-/* Oculta el texto cuando el usuario hace clic o cuando el campo ya tiene una fecha válida */
-input[type="date"]:focus + .date-placeholder,
-input[type="date"]:valid + .date-placeholder {
-    opacity: 0;
-    visibility: hidden;
-}
+.hidden { display: none; }
