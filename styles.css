@@ -22,7 +22,7 @@
 
 body { background-color: var(--bg); color: var(--text); transition: 0.3s; display: flex; flex-direction: column; min-height: 100vh; }
 
-.container { max-width: 1000px; margin: 0 auto; padding: 20px; flex: 1; /* Empuja el footer hacia abajo */ }
+.container { max-width: 1000px; margin: 0 auto; padding: 20px; flex: 1; }
 
 /* Header */
 header { background: var(--bg-card); padding: 15px 0; border-bottom: 1px solid var(--border); }
@@ -91,8 +91,10 @@ button { cursor: pointer; border: none; border-radius: 8px; font-weight: 600; tr
 .calendar-day { aspect-ratio: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 0.9rem; border-radius: 5px; cursor: pointer; }
 .calendar-day:hover { background: var(--primary); color: white; }
 .calendar-day.today { border: 2px solid var(--primary); font-weight: bold; }
+.calendar-day.selected { background: var(--primary-dark); color: white; }
 .markers-container { display: flex; gap: 2px; margin-top: 2px; }
 .task-marker { width: 4px; height: 4px; border-radius: 50%; background: var(--primary); }
+.task-marker.done { background: var(--success); }
 
 /* Overlay de Login */
 .overlay { position: fixed; inset: 0; background: var(--bg); display: flex; align-items: center; justify-content: center; z-index: 1000; }
@@ -100,70 +102,27 @@ button { cursor: pointer; border: none; border-radius: 8px; font-weight: 600; tr
 .btn-google { background: white; color: #757575; border: 1px solid #ddd; padding: 12px 24px; font-size: 1rem; display: flex; align-items: center; gap: 10px; margin: 20px auto; }
 
 /* --- FOOTER --- */
-footer {
-    background: var(--bg-card);
-    padding: 20px 0;
-    border-top: 1px solid var(--border);
-    margin-top: auto; /* Asegura que se quede abajo */
-}
-
-.footer-container {
-    max-width: 1000px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
-    color: var(--text-muted);
-    font-size: 0.9rem;
-}
-
-.footer-links {
-    display: flex;
-    gap: 15px;
-    align-items: center;
-}
-
-.footer-links a {
-    text-decoration: none;
-    transition: transform 0.2s;
-    display: flex;
-    align-items: center;
-}
-
-.footer-links a:hover {
-    transform: scale(1.1);
-}
-
-.linkedin-link {
-    color: #0077b5; /* Color de marca de LinkedIn */
-}
-
-.portfolio-icon {
-    width: 22px;
-    height: 22px;
-    border-radius: 50%; /* Opcional, queda bien si es circular */
-    object-fit: cover;
-}
+footer { background: var(--bg-card); padding: 20px 0; border-top: 1px solid var(--border); margin-top: auto; }
+.footer-container { max-width: 1000px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; color: var(--text-muted); font-size: 0.9rem; }
+.footer-links { display: flex; gap: 15px; align-items: center; }
+.footer-links a { text-decoration: none; transition: transform 0.2s; display: flex; align-items: center; }
+.footer-links a:hover { transform: scale(1.1); }
+.linkedin-link { color: #0077b5; }
+.portfolio-icon { width: 22px; height: 22px; border-radius: 50%; object-fit: cover; }
 
 /* --- RESPONSIVE / CELULAR --- */
 @media (max-width: 800px) {
     .dashboard-grid { grid-template-columns: 1fr; }
-    .calendar-card { order: -1; }
+    .calendar-card { order: -1; } 
 }
 
 @media (max-width: 600px) {
     .controls-section { flex-direction: column; align-items: stretch; }
-    #btn-export { width: 100%; margin-top: 5px; }
+    #btn-export, #btn-export-ics { width: 100%; margin-top: 5px; }
     .form-row { grid-template-columns: 1fr; }
     .header-container { flex-direction: column; gap: 10px; text-align: center; }
     .btn-ai { flex: 1 1 calc(50% - 10px); }
-    
-    .footer-container {
-        flex-direction: column;
-        gap: 10px;
-        text-align: center;
-    }
+    .footer-container { flex-direction: column; gap: 10px; text-align: center; }
 }
 
 .hidden { display: none; }
