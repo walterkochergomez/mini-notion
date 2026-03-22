@@ -235,7 +235,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8;' });
         const link = document.createElement("a");
         link.href = URL.createObjectURL(blob);
-        link.download = `Entregas_UFRO_${new Date().toISOString().split('T')[0]}.ics`;
+        link.download = `Tareas_${new Date().toISOString().split('T')[0]}.ics`;
         link.click();
     });
 
