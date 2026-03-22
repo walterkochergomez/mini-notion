@@ -159,3 +159,24 @@ button { cursor: pointer; border: none; border-radius: 8px; font-weight: 600; tr
         flex: none;
     }
 }
+/* --- FIX PARA PLACEHOLDER DE FECHA EN IOS --- */
+.date-wrapper {
+    position: relative;
+}
+
+.date-placeholder {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted); /* Usa tu color de dark/light mode */
+    pointer-events: none; /* Permite que el clic "atraviese" el texto y abra el calendario */
+    transition: opacity 0.2s ease;
+}
+
+/* Oculta el texto cuando el usuario hace clic o cuando el campo ya tiene una fecha válida */
+input[type="date"]:focus + .date-placeholder,
+input[type="date"]:valid + .date-placeholder {
+    opacity: 0;
+    visibility: hidden;
+}
