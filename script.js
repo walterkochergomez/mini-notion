@@ -324,10 +324,28 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('next-month').onclick = () => { currentMonth++; if(currentMonth>11){currentMonth=0;currentYear++;} renderCalendar(); };
 
     function initTheme() {
-        if (localStorage.getItem('darkMode') === 'enabled') document.body.classList.add('dark-mode');
-        themeToggle.onclick = () => {
-            document.body.classList.toggle('dark-mode');
-            localStorage.setItem('darkMode', document.body.classList.contains('dark-mode') ? 'enabled' : 'disabled');
+        const themeToggleInput = document.getElementById('theme-toggle-input'); // Nuevo selector
+
+        // 1. Estado inicial basado en localStorage
+        const isDarkMode = localStorage.getItem('darkMode') === 'enabled';
+        themeToggleInput.checked = isDarkMode; // Sincroniza el interruptor visualmente
+        if (isDarkMode) {
+            document.body.classList.add('dark-mode');
+        } else {
+            document.body.classList.remove('dark-mode');
+        }
+
+        // 2. Escuchar el evento de CAMBIO en el interruptor
+        themeToggleInput.onchange = () => {
+            if (themeToggleInput.checked) {
+                // Si está activado, activa el modo oscuro
+                document.body.classList.add('dark-mode');
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                // Si está desactivado, desactiva el modo oscuro
+                document.body.classList.remove('dark-mode');
+                localStorage.setItem('darkMode', 'disabled');
+            }
         };
     }
 });
