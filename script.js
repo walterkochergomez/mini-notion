@@ -17,7 +17,7 @@ const db = getFirestore(app);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 provider.addScope('https://www.googleapis.com/auth/drive.file');
-provider.setCustomParameters({ prompt: 'select_account' }); // Permite elegir cuenta de Google siempre
+provider.setCustomParameters({ prompt: 'consent select_account' }); // Permite elegir cuenta de Google siempre
 
 const tasksRef = collection(db, "academicTasks");
 let currentUser = null; 
