@@ -564,3 +564,64 @@ footer {
 }
 
 .hidden { display: none !important; }
+
+/* ==========================================================
+   INTERRUPTOR ESTILO iOS (Toggle Switch)
+   ========================================================== */
+.theme-switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 28px;
+  /* Ajuste sutil para alinear verticalmente con el botón 'Salir' */
+  margin-top: 5px; 
+}
+
+/* Ocultar el checkbox real */
+.theme-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* El deslizador (pista) */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #b6b6b6; /* iOS Off color (gris) */
+  transition: .4s;
+  border-radius: 34px;
+}
+
+/* El botón circular (knob) */
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 24px;
+  width: 24px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Sombra suave pro */
+}
+
+/* Estado ACTIVADO (Checked) */
+input:checked + .slider {
+  background-color: #34c759; /* iOS On color (verde vibrante) */
+}
+
+/* Anillo de enfoque pro al usar teclado */
+input:focus + .slider {
+  box-shadow: 0 0 1px #34c759;
+}
+
+/* Movimiento del botón circular */
+input:checked + .slider:before {
+  transform: translateX(22px); /* Mueve el círculo a la derecha */
+}
