@@ -115,7 +115,8 @@ document.addEventListener('DOMContentLoaded', () => {
             
             return { fileLink: fileData.webViewLink, folderLink: folderData.webViewLink };
         } catch (e) { 
-            statusDisplay.textContent = `❌ Error al subir a Drive`;
+            statusDisplay.textContent = `❌ Error de Drive.`;
+            alert("Dile a Walter este error: " + e.message + " | Token: " + (accessToken ? "Sí hay" : "No hay"));
             return null; 
         }
     }
