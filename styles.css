@@ -68,6 +68,12 @@ button { cursor: pointer; border: none; border-radius: 8px; font-weight: 600; tr
 .btn-claude { background: #d97757; } .btn-claude:hover { background: #c2694b; }
 .btn-gamma { background: #673ab7; } .btn-gamma:hover { background: #5e35b1; }
 
+/* Colores de las nuevas herramientas */
+.btn-deepseek { background: #1d4ed8; } /* Azul profundo característico */
+.btn-deepseek:hover { background: #1e40af; }
+
+.btn-perplexity { background: #0f172a; } /* Tono oscuro elegante de su interfaz */
+.btn-perplexity:hover { background: #1e293b; }
 /* Sección de Controles */
 .controls-section { display: flex; justify-content: space-between; align-items: flex-end; gap: 15px; margin-bottom: 25px; background: var(--bg-card); padding: 15px; border-radius: 12px; }
 .filter-group { flex: 1; }
