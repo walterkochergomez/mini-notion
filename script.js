@@ -263,11 +263,11 @@ document.addEventListener('DOMContentLoaded', () => {
         filtered.sort((a,b) => new Date(a.date) - new Date(b.date)).forEach(t => {
             const li = document.createElement('li');
             li.className = `task-item ${t.completed ? 'completed' : ''}`;
-            const link = t.fileMaterial || t.folderMaterial;
+            const link = t.folderMaterial || t.fileMaterial;
             li.innerHTML = `
                 <div class="task-info">
                     <strong>${t.name}</strong><span>📚 ${t.subject} | 📅 ${t.date}</span>
-                    <div class="task-material">${link ? `📎 <a href="${link}" target="_blank">Ver Material</a>` : 'Sin material'}</div>
+                    <div class="task-material">${link ? `📂 <a href="${link}" target="_blank">Abrir Carpeta</a>` : 'Sin material'}</div>
                 </div>
                 <div class="task-actions">
                     <button class="btn-action" onclick="toggleComplete('${t.id}')">✔️</button>
